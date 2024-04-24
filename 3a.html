@@ -1,0 +1,36 @@
+<code><pre>
+    import java.util.Scanner;
+public class VigE {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String msg = sc.nextLine().toUpperCase();
+        String key = sc.nextLine().toUpperCase();
+        String enc = "";
+        char[][] table = new char[26][26];
+        for (int i = 0; i < 26; i++) {
+            for (int j = 0; j < 26; j++) {
+                int ascii = i + j + 65;
+                if (ascii > 90)
+                    ascii -= 26;
+                char te = (char) ascii;
+                table[i][j] = te;
+            }
+        }
+        for (int i = 0; i < 26; i++) {
+            for (int j = 0; j < 26; j++) {
+                System.out.print(table[i][j] + " ");
+            }
+            System.out.println("\n");
+        }
+        for (int i = 0; i < msg.length(); i++) {
+            int p = msg.charAt(i);
+            int k = key.charAt(i % key.length());
+            int r = p - 65;
+            int c = k - 65;
+            char ci = table[r][c];
+            enc += ci;
+        }
+        System.out.println(enc);
+    }
+}
+</pre></code>

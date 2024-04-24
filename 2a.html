@@ -1,0 +1,116 @@
+<code>
+    <pre>
+        import java.util.Scanner;
+import java.awt.Point;
+public class PlayE{
+    static String parse(String str){
+        str = str.toUpperCase();
+        str = str.replaceAll("[^A-Z]","");
+        str = str.replace("J","I");
+        return str;
+    }
+    static boolean containsChar(String[][] table, char c){
+        for(int i=0;i<5;i++){
+            for(int j=0;j<5;j++){
+                if(table[i][j] != null && table[i][j].equals(Character.toString(c)))
+                return true;
+            }
+        }
+        return false;
+    }
+    static String[][] generatePlayFairTable(String key){
+        String playfairKey = key+"ABCDEFGHIKLMNOPQRSTUVWXYZ";
+        String[][] table = new String[5][5];
+        int index = 0;
+        for(char c : playfairKey.toCharArray()){
+            if(!containsChar(table,c)){
+                int row = index /5;
+                int col = index % 5;
+                table[row][col] = Character.toString(c);
+                index++;
+            }
+        }
+        return table;
+    }
+    static String adjustMessage(String message){
+        StringBuilder adjMessage = new StringBuilder(message);
+        for(int i=0;i< message.length()-1 ;i+=2){
+            if(adjMessage.charAt(i) == adjMessage.charAt(i+1)){
+                adjMessage.insert(i+1,"X");
+            }
+        }
+         if(adjMessage.length() % 2 == 1){
+                adjMessage.append("X");
+            }
+            return adjMessage.toString();
+    }
+    static String[] digraphs (String message){
+        String[] digraphs = new String[message.length() /2];
+        for(int i=0;i< digraphs.length;i++){
+            digraphs[i] = message.charAt(2*i)+""+message.charAt(2*i+1);
+        }
+        return digraphs;
+    }
+    static Point getPoint(char ch,String[][] table){
+        for(int i=0;i< 5;i++){
+            for(int j=0;j< 5;j++){
+                if(table[i][j].equals(Character.toString(ch))){
+                    return new Point(i,j);
+                }
+            }
+        }
+        return null;
+    }
+    static String encipherMessage(String[] digraphs, String[][] playFairTable){
+        StringBuilder cipherText = new StringBuilder();
+        for(String digraph : digraphs){
+            char a = digraph.charAt(0);
+            char b = digraph.charAt(1);
+
+            Point A = getPoint(a,playFairTable);
+            Point B = getPoint(b,playFairTable);
+
+            int r1 = A.x;
+            int c1 = A.y;
+            int r2 = B.x;
+            int c2 = B.y;
+
+            if(r1 == r2){
+                c1 = (c1+1)%5;
+                c2 = (c2+1)%5;
+            }
+            else if(c1 == c2){
+                r1 = (r1+1)%5;
+                r2 = (r2+1)%5;
+            }else{
+                int temp = c1;
+                c1 = c2;
+                c2 = temp;
+            }
+            cipherText.append(playFairTable[r1][c1]).append(playFairTable[r2][c2]);
+        }
+        return cipherText.toString();
+    }
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the message");
+        String msg = sc.nextLine();
+        System.out.println("Enter the key");
+        String key = sc.nextLine();
+        msg = parse(msg);
+        key = parse(key);
+        String[][] playFairTable = generatePlayFairTable(key);
+        for(int i=0;i<5;i++){
+            for(int j=0;j<5;j++){
+                System.out.print(playFairTable[i][j]+" ");
+            }
+            System.out.println();
+        }
+        String adjMessage = adjustMessage(msg);
+        String[] digraphs = digraphs(adjMessage);
+        String cipherText = encipherMessage(digraphs,playFairTable);
+        System.out.println("encryptedMessage :"+cipherText);
+    }
+}
+    </pre>
+</code>

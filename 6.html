@@ -1,0 +1,95 @@
+<code><pre>
+    import java.io.*;
+import java.util.*;
+import java.security.*;
+
+public class PwdManager {
+    public static List<String> readUserData() throws Exception {
+        BufferedReader br = new BufferedReader(new FileReader("input2.txt"));
+        List<String> userData = new ArrayList<>();
+        String line;
+        while ((line = br.readLine()) != null) {
+            userData.add(line);
+        }
+        return userData;
+    }
+
+    public static String hashPassword(String password) throws Exception {
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        byte[] hashInPass = md.digest(password.getBytes());
+        StringBuilder sb = new StringBuilder();
+        for (byte b : hashInPass) {
+            sb.append(String.format("%02x", b));
+        }
+        return sb.toString();
+    }
+
+    public static void writeUserData(List<String> userData) throws Exception {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("input2.txt"))) {
+            for (String entry : userData)
+                writer.write(entry + "\n");
+        }
+    }
+
+    public static void regsiterUser(String userId, String password) throws Exception {
+        List<String> userData = readUserData();
+        for (String entry : userData) {
+            String[] parts = entry.split(":");
+            if (parts[0].equals(userId)) {
+                System.out.println("User Id already exists");
+                return;
+            }   
+        }
+        String hashedPassword = hashPassword(password);
+        String userDataEntry = userId + ":" + hashedPassword;
+        userData.add(userDataEntry);
+        writeUserData(userData);
+        System.out.println("User added successfuly");
+    }
+    public static boolean authenticateUser(String userId,String password) throws Exception{
+        List<String> userData = readUserData();
+        for(String entry:userData){
+            String parts[] = entry.split(":");
+            if(userId.equals(parts[0])){
+                String hashedPassString = hashPassword(password);
+                System.out.println(hashedPassString);
+                if(parts[1].equals(hashedPassString)){
+                    System.out.println("Authentication success");
+                    return true;
+                }else{
+                    System.out.println("Invalid password");
+                    return false;
+                }
+            }
+        }
+        System.out.println("user Id not found");
+        return false;
+    }
+    public static void main(String[] args) throws Exception{
+        Scanner sc = new Scanner(System.in);
+        while(true){
+        int choice = sc.nextInt();
+        sc.nextLine();
+        switch(choice){
+            case 1:
+            String userId = sc.nextLine();
+            String password = sc.nextLine();
+            regsiterUser(userId, password);
+            break;
+            case 2:
+             userId = sc.nextLine();
+             password = sc.nextLine();
+            authenticateUser(userId, password);
+            break;
+            case 3:
+            System.exit(0);
+        }
+    }
+    }
+
+}
+user_data.txt
+01:ffbc0b7ec0d946ffd293bb1c4c40a5d195738c261798a91891051c7ed93bc18b
+02:2da2d33ceeb01c0a1e3dd13ad7218d73b3f189be817cd5ba659bc6c010084c64
+03:2da2d33ceeb01c0a1e3dd13ad7218d73b3f189be817cd5ba659bc6c010084c64
+</pre></code>

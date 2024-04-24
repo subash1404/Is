@@ -1,0 +1,107 @@
+<code><pre>
+    import java.util.*;
+import java.io.*;
+public class Pass {
+    public static boolean isValid(String password){
+if(password.length() > 8){
+System.out.println("The password must not be more than 8 characters");
+return false;
+}
+if(password.length() < 6){
+System.out.println("The password must be more than 6 characters");
+return false;
+}
+int upCount =0,digitCount=0,specialCount=0;
+char[] charArr = password.toCharArray();
+for(char c: charArr){
+if(Character.isUpperCase(c))
+upCount++;
+else if(Character.isDigit(c))
+digitCount++;
+else if(!Character.isLetterOrDigit(c))
+specialCount++;
+}
+if (upCount == 0) {
+    System.out.println("No upppercase characters");
+    return false;
+}
+if (digitCount == 0) {
+    System.out.println("No digits found");
+    return false;
+}
+if (specialCount == 0) {
+    System.out.println("No special characters");
+    return false;
+}
+for(int i=0;i< password.length();i++){
+for(int j=i+1;j< password.length() - 1;j++){
+if(charArr[i] == charArr[j]){
+System.out.println("Duplicate elements found");
+return false;
+}
+}
+}
+int isUpper=0,isLower=0,isDigit=0,isSpecial=0;
+for(int i=0;i< password.length();i++){
+if(Character.isUpperCase(charArr[i])){
+isUpper++;
+if(isUpper == 3){
+System.out.println("Consecutive uppercases");
+return false;
+}else
+isUpper = 0;
+}
+if(Character.isLowerCase(charArr[i])){
+isLower++;
+if(isLower == 3){
+System.out.println("Consecutive lowercases");
+return false;
+}else
+isLower = 0;
+}
+if(Character.isDigit(charArr[i])){
+isDigit++;
+if(isDigit == 3){
+System.out.println("Consecutive digits");
+return false;
+}else
+isDigit = 0;
+}
+if(!Character.isLetterOrDigit(charArr[i])){
+isSpecial++;
+if(isSpecial == 3){
+System.out.println("Consecutive special Characters");
+return false;
+}else
+isSpecial = 0;
+}
+}
+return true;
+}
+public static void main(String[] args){
+File file = new File("pass.txt");
+try{
+Scanner sc = new Scanner(file);
+while(sc.hasNextLine()){
+String password = sc.nextLine().trim();
+System.out.println("password :"+password);
+if(isValid(password))
+System.out.println("Pass is valid");
+else
+System.out.println("Pass is Invalid");
+}
+}catch(Exception e){
+e.printStackTrace();
+}
+}
+}
+
+password.txt
+Abc
+Abca@23
+SSS@r23
+Abcdef@123
+Abc@1
+Abc@12
+
+</pre></code>

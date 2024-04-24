@@ -1,0 +1,54 @@
+<code><pre>
+    import java.util.*;
+public class RailD {
+    public static void main(String[] args) {
+        int row = 0, col = 0;
+        boolean down = false;
+        Scanner sc = new Scanner(System.in);
+        String msg = sc.nextLine();
+        int key = sc.nextInt();
+        char[][] matrix = new char[key][msg.length()];
+        for (int i = 0; i < msg.length(); i++) {
+            if (row == 0 || row == key - 1)
+                down = !down;
+            matrix[row][col++] = '*';
+            if (down)
+                row++;
+            else
+                row--;
+        }
+        int index = 0;
+        for (int i = 0; i < key; i++) {
+            for (int j = 0; j < msg.length(); j++) {
+                if (matrix[i][j] == '*')
+                    matrix[i][j] = msg.charAt(index++);
+                else
+                    matrix[i][j] = '\0';
+                }
+        }
+        for (int i = 0; i < key; i++) {
+            for (int j = 0; j < msg.length(); j++) {
+                if (matrix[i][j] != '\0')
+                    System.out.print(matrix[i][j]+" ");
+                else 
+            System.out.print(" ");
+            }
+            System.out.println();
+        }
+String dec="";
+down = false;
+row=0;
+col=0;
+        for(int i=0;i< msg.length();i++){
+            if(row == 0 || row==key-1)
+            down = !down;
+            dec+=matrix[row][col++];
+            if(down)
+            row++;
+            else
+            row--;
+        }
+        System.out.println(dec);
+    }
+}
+</pre></code>
