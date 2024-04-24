@@ -3,38 +3,36 @@
     <body>
         <code>
             <pre>
-                public class Caesar_Encryption 
+import java.io.*;
+import java.util.*;
+class brute_force_1 
 { 
- public static void main(String[] args) throws Exception{ 
- Scanner sc = new Scanner(System.in); 
- System.out.print("Enter the message: "); 
- String msg = sc.nextLine(); 
- System.out.print("Enter the key: "); 
- int key = sc.nextInt(); 
- key=key%26; 
- for(int i=0;i<msg.length();i++){ 
- char ch = msg.charAt(i); 
- if(Character.isAlphabetic(ch)){ 
- int ascii = (int) ch; 
- int m = ascii + key; 
- if(ascii<=90 && ascii>=65){ 
- if(m>90) 
- m-=26; 
- else if(m<65) 
- m+=26; 
-} else if (ascii <= 122 && ascii >= 97) {
-if (m > 122)
- m -= 26;
-else if (m < 97)
- m += 26;
-}
-ch = (char) m;
-msg = msg.substring(0, i) + ch + msg.substring(i + 1);
-}
-}
-System.out.println("Cipher Text: " + msg);
-}
-}`;
+ public static void brute(String encText){ 
+ encText = encText.toLowerCase();
+ String text = "abcdefghijklmnopqrstuvwxyz";
+ String finalValue="";
+ for(int i=0;i< 26;i++){
+ System.out.print("Key["+i+"]=");
+ for(int j=0;j< encText.length();j++){
+ char c = encText.charAt(j);
+ int charInt = text.indexOf(c);
+ int pos = (charInt-i)%26;
+ if(pos< 0){ 
+ pos = text.length()+pos;
+ } 
+ char encrChar = text.charAt(pos);
+ finalValue+=encrChar;
+ } 
+ System.out.println(finalValue);
+ finalValue="";
+ } 
+ } 
+ public static void main(String args[]){ 
+ Scanner sc = new Scanner(System.in);
+ System.out.print("Enter The Encrypted Message :");
+ String encText = sc.nextLine();
+ brute(encText);
+}}
             </pre>
         </code>
     </body>

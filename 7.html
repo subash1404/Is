@@ -1,2 +1,58 @@
 <h1>Networking commands
 </h1>
+<code><pre>
+1)Display all network interfaces on the system.
+COMMAND: ipconfig/all
+DESCRIPTION: it displays all the network interfaces on the system.
+
+2)Display all addresses and bind new address or delete old ones.
+a)COMMAND: netsh interface ip show addresses
+DESCRIPTION: it displays all addresses.
+
+b)SYNTAX: netsh interface ip add address "<hostname>" <new ip address> <subnet mask>
+COMMAND: netsh interface ip add address "Ethernet" 192.168.1.100 255.255.255.0
+DESCRIPTION: it binds new addresses
+
+c)SYNTAX: netsh interface ip delete address "<hostname>" <existing ip address>
+COMMAND: netsh interface ip delete address "Ethernet" 192.168.1.100
+DESCRIPTION: it deletes the old addresses
+
+3)Use nmap scan to show the ports their states(open/closed) and protocols.
+COMMAND: netstat -an
+DESCRIPTION: it shows the ports and their states whether as open/closed and protocols.
+
+4)To print or display the routing table.
+COMMAND: netstat -r
+DESCRIPTION: it displays the routing table.
+
+5)Check if the host is alive
+SYNTAX: ping <hostname> or ping -n <hostname>
+COMMAND: >ping –n DESKTOP-6MQIDT5
+DESCRIPTION: it checks if the host is alive or not.
+
+6)Analyse and measure the network performance between the two hosts.
+SYNTAX: tracert <ip address>
+COMMAND: tracert 192.168.56.1
+DESCRIPTION: it analyses and measure the network performance between two hosts
+
+7)Show the sequence of gateways through which the packets travel to reach their destination.
+SYNTAX: tracert <hostname>
+COMMAND: tracert google.com
+DESCRIPTION: it shows the sequence of gateways through which the packets travel to reach
+
+8)Packet sniffing tool command
+COMMAND: netsh trace start
+DESCRIPTION: it is a command line packet sniffe tool primarily used in windows OS
+
+9)Display only TCP connections with the states established.
+COMMAND: netstat -ano | findstr "ESTABLISHED"
+DESCRIPTION: it displays only TCP connections with the states established
+
+10)Connect securely with remote host over the internet
+COMMAND: ssh ITMCLAB-28@google.com
+DESCRIPTION: it connects securely with remote host over the internet
+
+11)Query Domain Name Server(DNS) and restoring IP addresses.
+COMMAND: nslookup example.com
+DESCRIPTION: it queries domain name server and restore the IP addresses
+</pre></code>

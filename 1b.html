@@ -3,38 +3,31 @@
     <body>
         <code>
             <pre>
-                public class Caesar_Encryption 
+                import java.util.Scanner;
+public class decryption 
 { 
- public static void main(String[] args) throws Exception{ 
- Scanner sc = new Scanner(System.in); 
- System.out.print("Enter the message: "); 
- String msg = sc.nextLine(); 
- System.out.print("Enter the key: "); 
- int key = sc.nextInt(); 
- key=key%26; 
- for(int i=0;i<msg.length();i++){ 
- char ch = msg.charAt(i); 
- if(Character.isAlphabetic(ch)){ 
- int ascii = (int) ch; 
- int m = ascii + key; 
- if(ascii<=90 && ascii>=65){ 
- if(m>90) 
- m-=26; 
- else if(m<65) 
- m+=26; 
-} else if (ascii <= 122 && ascii >= 97) {
-if (m > 122)
- m -= 26;
-else if (m < 97)
- m += 26;
-}
-ch = (char) m;
-msg = msg.substring(0, i) + ch + msg.substring(i + 1);
-}
-}
-System.out.println("Cipher Text: " + msg);
-}
-}`;
+ public static void main(String[] args) 
+ { 
+ System.out.println("Ceaser cipher decryption\n");
+ int key,i,index,e_index;
+ String etext="",text;
+String alphabet = "abcdefghijklmnopqrstuvwxyz";
+ System.out.println("Enter the text to decrypt :");
+ Scanner sc=new Scanner(System.in);
+ text=sc.nextLine();
+ System.out.println("Enter the key value:");
+ key=sc.nextInt();
+ for(i=0;i< text.length();i++)
+ { 
+ char current_char=text.charAt(i);
+ index=alphabet.indexOf(current_char);
+ e_index=(index-key)%26;
+ etext=etext+alphabet.charAt(e_index);
+ } 
+ System.out.println("encrypted text is:"+etext);
+ } 
+} 
+
             </pre>
         </code>
     </body>
