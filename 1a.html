@@ -3,6 +3,7 @@
     <body>
         <code>
             <pre>
+import java.util.*;
 public class Caesar_Encryption 
 { 
  public static void main(String[] args) throws Exception{ 
@@ -12,7 +13,7 @@ public class Caesar_Encryption
  System.out.print("Enter the key: "); 
  int key = sc.nextInt(); 
  key=key%26; 
- for(int i=0;i<msg.length();i++){ 
+ for(int i=0;i< msg.length();i++){ 
  char ch = msg.charAt(i); 
  if(Character.isAlphabetic(ch)){ 
  int ascii = (int) ch; 
