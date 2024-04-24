@@ -3,30 +3,31 @@
     <body>
         <code>
             <pre>
-                import java.util.Scanner;
-public class decryption 
-{ 
- public static void main(String[] args) 
- { 
- System.out.println("Ceaser cipher decryption\n");
- int key,i,index,e_index;
- String etext="",text;
-String alphabet = "abcdefghijklmnopqrstuvwxyz";
- System.out.println("Enter the text to decrypt :");
- Scanner sc=new Scanner(System.in);
- text=sc.nextLine();
- System.out.println("Enter the key value:");
- key=sc.nextInt();
- for(i=0;i< text.length();i++)
- { 
- char current_char=text.charAt(i);
- index=alphabet.indexOf(current_char);
- e_index=(index-key)%26;
- etext=etext+alphabet.charAt(e_index);
- } 
- System.out.println("encrypted text is:"+etext);
- } 
-} 
+import java.util.Scanner;
+class CeaserCipher{
+static String decrypt (String msg, int key){
+String encryptMsg = "";
+int encryptChar;
+msg = msg.toUpperCase();
+for (int i = 0 ; i< msg.length() ; i++){
+encryptChar = (Math.abs((int) msg.charAt(i) - key - 65) % 26) + 65;
+encryptMsg = encryptMsg + (char)encryptChar; 
+}
+return encryptMsg;
+}
+public static void main(String[] args){
+String plainText, cipherText;
+Scanner sc = new Scanner(System.in);
+System.out.print("Enter a message: ");
+cipherText = sc.nextLine();
+System.out.print("Enter a key: ");
+int userKey = sc.nextInt();
+plainText = decrypt(cipherText,userKey);
+System.out.println("Decrypted message: "+plainText);
+sc.close();
+}
+}
+
 
             </pre>
         </code>
